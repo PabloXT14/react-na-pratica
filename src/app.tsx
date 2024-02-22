@@ -12,7 +12,8 @@ import {
   TableRow,
 } from './components/ui/table'
 import { Pagination } from './components/pagination'
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useSearchParams } from 'react-router-dom'
 
 export interface Tag {
   title: string
@@ -32,23 +33,26 @@ export interface TagResponse {
 }
 
 export function App() {
+  const [searchParams] = useSearchParams()
+
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1
+
   const { data: tagResponse, isLoading } = useQuery<TagResponse>({
-    queryKey: ['get-tags'],
+    queryKey: ['get-tags', page],
     queryFn: async () => {
       const response = await fetch(
-        'http://localhost:3333/tags?_page=1&_per_page=10',
+        `http://localhost:3333/tags?_page=${page}&_per_page=10`,
       )
       const data = await response.json()
 
       return data
     },
+    placeholderData: keepPreviousData,
   })
 
   if (isLoading) {
     return null
   }
-
-  console.log(tagResponse)
 
   return (
     <div className="space-y-8 py-10">
@@ -112,7 +116,13 @@ export function App() {
         </Table>
 
         {/* Pagination */}
-        <Pagination pages={10} page={1} items={100} />
+        {tagResponse && (
+          <Pagination
+            pages={tagResponse.pages}
+            items={tagResponse.items}
+            page={page}
+          />
+        )}
       </main>
     </div>
   )
