@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from './components/ui/table'
+import { Pagination } from './components/pagination'
 
 export function App() {
   return (
@@ -75,6 +76,9 @@ export function App() {
             ))}
           </TableBody>
         </Table>
+
+        {/* Pagination */}
+        <Pagination pages={10} page={1} items={100} />
       </main>
     </div>
   )
