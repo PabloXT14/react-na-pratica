@@ -6,6 +6,30 @@ Projeto criado durante o evento "React na Prática" da Rocketseat 🚀, para tre
 
 Criamos um projeto totalmente do zero, desde a UI (User Interface/Interface do Usuário) até funcionalidades diferenciais, como filtros, paginação e ordenação.
 
+## Telas
+
+### Listagem de dados
+
+<p align="center">
+  <img
+    src=".github/tags-page.png"
+    alt="Tags Page"
+    title="Tags Page"
+    width="100%"
+  />
+</p>
+
+### Formulário de cadastro
+
+<p align="center">
+  <img
+    src=".github/create-tag-page.png"
+    alt="Create Tag Page"
+    title="Create Tag Page"
+    width="100%"
+  />
+</p>
+
 ## Funcionalidades
 
 Principais funcionalidades desenvolvidas:
