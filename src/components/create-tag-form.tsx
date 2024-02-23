@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Dialog from '@radix-ui/react-dialog'
 import { toast } from 'sonner'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const createTagSchema = z.object({
   title: z.string().min(3, { message: 'Minimum 3 characters.' }),
@@ -22,6 +23,8 @@ function getSlugFromString(input: string): string {
 }
 
 export function CreateTagForm() {
+  const queryClient = useQueryClient()
+
   const {
     register,
     handleSubmit,
@@ -33,20 +36,29 @@ export function CreateTagForm() {
 
   const slug = watch('title') ? getSlugFromString(watch('title')) : ''
 
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ title }: CreateTagFormData) => {
+      // delay 2s
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+
+      await fetch('http://localhost:3333/tags', {
+        method: 'POST',
+        body: JSON.stringify({
+          title,
+          slug,
+          amountOfVideos: 0,
+        }),
+      })
+    },
+    onSuccess: () => {
+      toast.success('Tag created!')
+
+      queryClient.invalidateQueries({ queryKey: ['get-tags'] })
+    },
+  })
+
   async function createTag({ title }: CreateTagFormData) {
-    // delay 2s
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    await fetch('http://localhost:3333/tags', {
-      method: 'POST',
-      body: JSON.stringify({
-        title,
-        slug,
-        amountOfVideos: 0,
-      }),
-    })
-
-    toast.success('Tag created!')
+    await mutateAsync({ title })
   }
 
   return (

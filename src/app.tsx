@@ -91,7 +91,7 @@ export function App() {
             </Dialog.Trigger>
 
             <Dialog.Portal>
-              <Dialog.Overlay className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
+              <Dialog.Overlay className="fixed inset-0 bg-black/70" />
               <Dialog.Content className="fixed bottom-0 right-0 top-0 h-screen min-w-[320px] space-y-10 border-l border-l-zinc-900 bg-zinc-950 p-10">
                 <div className="space-y-3">
                   <Dialog.Title className="text-xl font-bold">

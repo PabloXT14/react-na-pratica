@@ -1102,6 +1102,18 @@
       "title": "nova tag",
       "slug": "nova-tag",
       "amountOfVideos": 0
+    },
+    {
+      "id": "fedc",
+      "title": "mais uma tag",
+      "slug": "mais-uma-tag",
+      "amountOfVideos": 0
+    },
+    {
+      "id": "8e9a",
+      "title": "deve aparecer na lista sozinho",
+      "slug": "deve-aparecer-na-lista-sozinho",
+      "amountOfVideos": 0
     }
   ]
 }
